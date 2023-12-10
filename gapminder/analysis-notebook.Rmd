@@ -1,0 +1,72 @@
+---
+title: "Analysis of GDP per capita and average life expectancy across continents using the gapminder dataset."
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load the data and some required libraries:
+
+```{r}
+library(gapminder)
+library(ggplot2)
+
+data("gapminder")
+```
+
+Look at the first and the last 5 rows of the dataset:
+
+```{r}
+head(gapminder, 5)
+```
+
+```{r}
+tail(gapminder, 5)
+```
+
+Analyse GDP per capita against life expectancy:
+
+```{r}
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color=factor(continent))) +
+        geom_point(shape = 16) +
+        labs(title = "Scatterplot of GDP per Capita against Life Expectancy",
+             x = "GDP per Capita",
+             y = "Life Expectancy",
+             color = "Continent", 
+             ) +
+        scale_x_log10()
+```
+
+Analyse life expectancy across continents:
+
+```{r}
+ggplot(gapminder, aes(x = factor(continent), y = lifeExp, fill = factor(continent))) +
+        geom_boxplot() +
+        labs(title = "Boxplot of Life Expectancy across Continents",
+             x = "Continents",
+             y = "Life Expectancy",
+             ) +
+        theme_minimal()
+```
+
+```{r}
+ggplot(gapminder, aes(x = lifeExp, fill = factor(continent))) +
+        geom_histogram(binwidth = 2, position = "identity", alpha = 0.7) +
+        labs(title = "Histogram of Life Expectancy across Continents",
+             x = "Life Expectancy",
+             y = "Frequency",
+             ) +
+        theme_minimal()
+```
+
+```{r}
+ggplot(gapminder, aes(x = lifeExp, fill = factor(continent))) +
+        geom_density(alpha = 0.7) +
+        labs(title = "Density plot of Life Expectancy across Continents",
+             x = "Life Expectancy",
+             y = "Frequency density",
+        ) +
+        theme_minimal()
+```
